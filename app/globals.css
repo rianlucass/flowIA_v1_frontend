@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+/* Configuração do Design System Global */
+@theme {
+  /* Conecta a variável do layout.tsx com a fonte sans padrão do Tailwind */
+  --font-sans: var(--font-inter), sans-serif;
+  
+  /* --- Paleta Semântica Minimalista --- */
+  
+  /* Cores de Fundo e Texto Base */
+  --color-background: #F8FAFC;       /* Slate 50 - Fundo principal claro */
+  --color-foreground: #0F172A;       /* Slate 900 - Texto principal escuro */
+  --color-surface: #FFFFFF;          /* Branco puro para cards e modais */
+  
+  /* Cor Primária (Botões e Destaques) */
+  --color-primary: #2563EB;          /* Azul moderno */
+  --color-primary-hover: #1D4ED8;    /* Azul mais escuro para hover */
+  --color-primary-foreground: #FFFFFF;
+  
+  /* Cores Mutadas (Bordas, Divisores e Textos Secundários) */
+  --color-muted: #E2E8F0;            /* Slate 200 */
+  --color-muted-foreground: #64748B; /* Slate 500 */
+  
+  /* Cores de Destaque Secundário (Fundos de menu, etc) */
+  --color-accent: #F1F5F9;           /* Slate 100 */
+  --color-accent-foreground: #0F172A;
+}
+
+/* Opcional: Define a cor de fundo e texto automaticamente para o body inteiro */
+@layer base {
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+  }
+}
