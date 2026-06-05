@@ -2,6 +2,6 @@ import { DashboardLayoutShell } from '@/components/common/DashboardLayoutShell';
 
 export const dynamic = 'force-dynamic';
 
-export default function AppLayout({ children }: { children: React.ReactNode }) {
+export default function VagasDashboardLayout({ children }: { children: React.ReactNode }) {
   return <DashboardLayoutShell>{children}</DashboardLayoutShell>;
 }

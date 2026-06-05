@@ -1,17 +1,10 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL ,
+  baseURL: '/api',
   headers: {
     'Content-Type': 'application/json',
+    // Required to bypass ngrok's browser warning interstitial (ERR_NGROK_6024)
+    'ngrok-skip-browser-warning': 'true',
   },
-});
-
-api.interceptors.request.use((config) => {
-  if (typeof window === 'undefined') return config;
-  const token = localStorage.getItem('token');
-  if (token && config.headers) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
 });

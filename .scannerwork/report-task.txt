@@ -1,0 +1,6 @@
+projectKey=flowia-frontend
+serverUrl=https://sedimentologic-crescentlike-tijuana.ngrok-free.dev
+serverVersion=26.5.0.122743
+dashboardUrl=https://sedimentologic-crescentlike-tijuana.ngrok-free.dev/dashboard?id=flowia-frontend
+ceTaskId=bd16cebf-3b4a-4823-ab6e-be5eb31a6e8a
+ceTaskUrl=https://sedimentologic-crescentlike-tijuana.ngrok-free.dev/api/ce/task?id=bd16cebf-3b4a-4823-ab6e-be5eb31a6e8a
