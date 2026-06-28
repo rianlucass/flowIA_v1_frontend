@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { CandidateAnalysisResponseDTO } from '@/types/analysis';
 import { X, BarChart3, Zap, AlertTriangle, HelpCircle, Ban, MessageCircle, FileText, Phone } from 'lucide-react';
 import StatusBadge from './StatusBadge';
@@ -11,16 +12,41 @@ interface CandidateDetailsModalProps {
 }
 
 export default function CandidateDetailsModal({ analysis, onClose }: CandidateDetailsModalProps) {
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const displayName = analysis.candidateName || `Candidato #${analysis.candidateId.slice(0, 8)}`;
 
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (dialog && !dialog.open) {
+      dialog.showModal();
+    }
+  }, []);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    const handleClose = () => onClose();
+    const handleClick = (e: MouseEvent) => {
+      if (e.target === dialog) onClose();
+    };
+
+    dialog.addEventListener('close', handleClose);
+    dialog.addEventListener('click', handleClick);
+
+    return () => {
+      dialog.removeEventListener('close', handleClose);
+      dialog.removeEventListener('click', handleClick);
+    };
+  }, [onClose]);
+
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
-      onClick={onClose}
+    <dialog
+      ref={dialogRef}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-transparent p-0 border-0 w-full h-full max-w-none max-h-none backdrop:bg-black/50"
     >
       <div
         className="relative max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-xl bg-white shadow-2xl"
-        onClick={(e) => e.stopPropagation()}
       >
         <div className="sticky top-0 z-10 border-b border-gray-200 bg-white px-6 py-4">
           <div className="flex items-start justify-between gap-4">
@@ -79,7 +105,7 @@ export default function CandidateDetailsModal({ analysis, onClose }: CandidateDe
               </h3>
               <ul className="space-y-2">
                 {analysis.strengths.items.map((strength, index) => (
-                  <li key={index} className="flex items-start gap-2 text-gray-700">
+                  <li key={`${strength}-${index}`} className="flex items-start gap-2 text-gray-700">
                     <span className="mt-1 shrink-0 text-green-600">•</span>
                     <span>{strength}</span>
                   </li>
@@ -96,7 +122,7 @@ export default function CandidateDetailsModal({ analysis, onClose }: CandidateDe
               </h3>
               <ul className="space-y-2">
                 {analysis.attentionPoints.items.map((point, index) => (
-                  <li key={index} className="flex items-start gap-2 text-gray-700">
+                  <li key={`${point}-${index}`} className="flex items-start gap-2 text-gray-700">
                     <span className="mt-1 shrink-0 text-amber-600">•</span>
                     <span>{point}</span>
                   </li>
@@ -113,7 +139,7 @@ export default function CandidateDetailsModal({ analysis, onClose }: CandidateDe
               </h3>
               <ul className="space-y-2">
                 {analysis.missingInformation.items.map((info, index) => (
-                  <li key={index} className="flex items-start gap-2 text-gray-700">
+                  <li key={`${info}-${index}`} className="flex items-start gap-2 text-gray-700">
                     <span className="mt-1 shrink-0 text-gray-400">•</span>
                     <span>{info}</span>
                   </li>
@@ -130,7 +156,7 @@ export default function CandidateDetailsModal({ analysis, onClose }: CandidateDe
               </h3>
               <ul className="space-y-2">
                 {analysis.eliminationReasons.map((reason, index) => (
-                  <li key={index} className="flex items-start gap-2 text-red-700 font-medium">
+                  <li key={`${reason}-${index}`} className="flex items-start gap-2 text-red-700 font-medium">
                     <span className="mt-1 shrink-0">•</span>
                     <span>{reason}</span>
                   </li>
@@ -147,7 +173,7 @@ export default function CandidateDetailsModal({ analysis, onClose }: CandidateDe
               </h3>
               <ul className="space-y-2">
                 {analysis.interviewQuestions.items.map((question, index) => (
-                  <li key={index} className="flex items-start gap-2 text-gray-700">
+                  <li key={`${question}-${index}`} className="flex items-start gap-2 text-gray-700">
                     <span className="mt-1 shrink-0 font-bold text-primary-600">{index + 1}.</span>
                     <span>{question}</span>
                   </li>
@@ -221,6 +247,6 @@ export default function CandidateDetailsModal({ analysis, onClose }: CandidateDe
           </div>
         </div>
       </div>
-    </div>
+    </dialog>
   );
 }

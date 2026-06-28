@@ -122,11 +122,17 @@ function JobCard({
 
   return (
     <div
-      className="bg-surface border border-muted rounded-xl p-5 flex flex-col gap-4 hover:shadow-sm transition-shadow cursor-pointer"
-      onClick={onClick}
+      className="relative bg-surface border border-muted rounded-xl p-5 flex flex-col gap-4 hover:shadow-sm transition-shadow"
     >
-      <div className="flex items-start justify-between gap-2">
-        <div className="min-w-0">
+      <button
+        type="button"
+        onClick={onClick}
+        className="absolute inset-0 z-0 w-full h-full cursor-pointer rounded-xl"
+        aria-label={`Ver detalhes da vaga: ${job.title}`}
+      />
+
+      <div className="relative z-10 flex items-start justify-between gap-2">
+        <div className="min-w-0 pointer-events-none">
           <h3 className="font-semibold text-foreground text-base leading-tight truncate">
             {job.title}
           </h3>
@@ -143,7 +149,7 @@ function JobCard({
                 setMenuOpen((prev) => !prev);
               }}
               disabled={updateMutation.isPending}
-              className="p-1.5 rounded-md hover:bg-accent text-muted-foreground hover:text-foreground transition-colors disabled:opacity-50"
+              className="pointer-events-auto p-1.5 rounded-md hover:bg-accent text-muted-foreground hover:text-foreground transition-colors disabled:opacity-50"
               aria-label="Opções da vaga"
             >
               <MoreHorizontal className="w-4 h-4" />
@@ -151,8 +157,7 @@ function JobCard({
 
             {menuOpen && (
               <div
-                className="absolute right-0 top-8 z-20 bg-surface border border-muted rounded-lg shadow-lg min-w-42 py-1"
-                onClick={(e) => e.stopPropagation()}
+                className="absolute right-0 top-8 z-20 bg-surface border border-muted rounded-lg shadow-lg min-w-42 py-1 pointer-events-auto"
               >
                 {menuOptions.map((opt) => (
                   <button
@@ -174,7 +179,7 @@ function JobCard({
         )}
       </div>
 
-      <div className="flex flex-col gap-1.5">
+      <div className="relative z-10 pointer-events-none flex flex-col gap-1.5">
         <div className="flex items-center gap-2 text-sm text-muted-foreground justify-between">
           {location ? (
             <div className="flex items-center gap-2 min-w-0">
@@ -199,14 +204,14 @@ function JobCard({
         )}
       </div>
 
-      <div className="flex items-center justify-between pt-2 border-t border-muted">
-        <span className={`text-sm font-medium ${statusCfg.className}`}>
+      <div className="relative z-10 flex items-center justify-between pt-2 border-t border-muted">
+        <span className={`pointer-events-none text-sm font-medium ${statusCfg.className}`}>
           {statusCfg.label}
         </span>
 
         <Link
           href={`/vagas/${job.id}/candidatos`}
-          className="flex items-center gap-1.5 text-sm text-primary hover:text-primary-hover font-medium transition-colors"
+          className="pointer-events-auto flex items-center gap-1.5 text-sm text-primary hover:text-primary-hover font-medium transition-colors"
         >
           Ver candidatos
           <ExternalLink className="w-3.5 h-3.5" />

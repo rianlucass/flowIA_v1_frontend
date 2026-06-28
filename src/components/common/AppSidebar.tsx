@@ -44,8 +44,10 @@ export function AppSidebar() {
     <>
       {/* Backdrop for mobile */}
       {isSidebarOpen && (
-        <div
-          className="fixed inset-0 bg-black/40 backdrop-blur-xs z-40 lg:hidden"
+        <button
+          type="button"
+          aria-label="Fechar menu"
+          className="fixed inset-0 bg-black/40 backdrop-blur-xs z-40 lg:hidden border-0"
           onClick={closeSidebar}
         />
       )}

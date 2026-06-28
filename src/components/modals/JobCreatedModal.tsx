@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { X, CheckCircle2, ExternalLink, Users, PartyPopper, MapPin, DollarSign } from 'lucide-react';
 import { CopyLinkButton } from '@/components/common/CopyLinkButton';
@@ -12,6 +13,7 @@ interface JobCreatedModalProps {
 
 export function JobCreatedModal({ job, onClose }: JobCreatedModalProps) {
   const router = useRouter();
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
   const baseUrl = typeof window !== 'undefined' 
     ? window.location.origin 
@@ -28,14 +30,38 @@ export function JobCreatedModal({ job, onClose }: JobCreatedModalProps) {
     router.push('/vagas');
   }
 
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (dialog && !dialog.open) {
+      dialog.showModal();
+    }
+  }, []);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    const handleClose = () => onClose();
+    const handleClick = (e: MouseEvent) => {
+      if (e.target === dialog) onClose();
+    };
+
+    dialog.addEventListener('close', handleClose);
+    dialog.addEventListener('click', handleClick);
+
+    return () => {
+      dialog.removeEventListener('close', handleClose);
+      dialog.removeEventListener('click', handleClick);
+    };
+  }, [onClose]);
+
   return (
-    <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
-      onClick={onClose}
+    <dialog
+      ref={dialogRef}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-transparent p-0 border-0 w-full h-full max-w-none max-h-none backdrop:bg-black/60 backdrop:backdrop-blur-sm"
     >
       <div 
         className="relative bg-surface border border-muted rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
-        onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
@@ -127,6 +153,6 @@ export function JobCreatedModal({ job, onClose }: JobCreatedModalProps) {
           </div>
         </div>
       </div>
-    </div>
+    </dialog>
   );
 }
