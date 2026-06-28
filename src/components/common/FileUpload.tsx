@@ -73,7 +73,7 @@ export function FileUpload({
   }
 
   // ── Drag & drop handlers ────────────────────────────────────────────────────
-  function handleDrag(e: DragEvent<HTMLDivElement>) {
+  function handleDrag(e: DragEvent<HTMLElement>) {
     e.preventDefault();
     e.stopPropagation();
     if (e.type === 'dragenter' || e.type === 'dragover') {
@@ -83,7 +83,7 @@ export function FileUpload({
     }
   }
 
-  function handleDrop(e: DragEvent<HTMLDivElement>) {
+  function handleDrop(e: DragEvent<HTMLElement>) {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
@@ -122,20 +122,28 @@ export function FileUpload({
     <div className={`w-full ${className}`}>
       {/* Upload area */}
       <div
-        onClick={handleClick}
-        onDragEnter={handleDrag}
-        onDragLeave={handleDrag}
-        onDragOver={handleDrag}
-        onDrop={handleDrop}
         className={`
           relative border-2 border-dashed rounded-lg p-8
           transition-all duration-200 ease-in-out
-          ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
+          ${disabled ? 'opacity-50 cursor-not-allowed' : ''}
           ${dragActive ? 'border-primary bg-primary/5' : 'border-muted hover:border-primary/50'}
           ${displayError ? 'border-red-400 bg-red-50/50' : ''}
           ${success ? 'border-green-400 bg-green-50/50' : ''}
         `}
       >
+        {!disabled && (
+          <button
+            type="button"
+            onClick={handleClick}
+            onDragEnter={handleDrag}
+            onDragLeave={handleDrag}
+            onDragOver={handleDrag}
+            onDrop={handleDrop}
+            className="absolute inset-0 z-0 w-full h-full cursor-pointer rounded-lg"
+            aria-label="Selecionar arquivo para upload"
+          />
+        )}
+
         <input
           ref={inputRef}
           type="file"
@@ -146,9 +154,8 @@ export function FileUpload({
         />
 
         {hasFile ? (
-          // File selected
-          <div className="flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3 min-w-0">
+          <div className="relative z-10 flex items-center justify-between gap-4">
+            <div className="pointer-events-none flex items-center gap-3 min-w-0">
               <div className="flex-shrink-0 w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
                 <File className="w-5 h-5 text-primary" />
               </div>
@@ -165,19 +172,15 @@ export function FileUpload({
             {!disabled && (
               <button
                 type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleRemove();
-                }}
-                className="flex-shrink-0 p-1.5 rounded-md hover:bg-red-100 text-muted-foreground hover:text-red-600 transition-colors"
+                onClick={handleRemove}
+                className="pointer-events-auto flex-shrink-0 p-1.5 rounded-md hover:bg-red-100 text-muted-foreground hover:text-red-600 transition-colors"
               >
                 <X className="w-4 h-4" />
               </button>
             )}
           </div>
         ) : (
-          // No file selected
-          <div className="flex flex-col items-center gap-3 text-center">
+          <div className="relative z-10 pointer-events-none flex flex-col items-center gap-3 text-center">
             <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
               <Upload className="w-6 h-6 text-primary" />
             </div>

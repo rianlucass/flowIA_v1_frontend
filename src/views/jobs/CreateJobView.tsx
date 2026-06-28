@@ -252,8 +252,9 @@ export function CreateJobView() {
           <Section title="Informações Básicas">
             <div className="flex flex-col gap-4">
               <div>
-                <label className={labelCls}>Título da Vaga *</label>
+                <label htmlFor="job-title" className={labelCls}>Título da Vaga *</label>
                 <input
+                  id="job-title"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="Ex: Desenvolvedor Full Stack"
@@ -262,8 +263,9 @@ export function CreateJobView() {
               </div>
 
               <div>
-                <label className={labelCls}>Descrição *</label>
+                <label htmlFor="job-description" className={labelCls}>Descrição *</label>
                 <textarea
+                  id="job-description"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   rows={4}
@@ -274,8 +276,9 @@ export function CreateJobView() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className={labelCls}>Modalidade *</label>
+                  <label htmlFor="job-modality" className={labelCls}>Modalidade *</label>
                   <select
+                    id="job-modality"
                     value={modality}
                     onChange={(e) => setModality(e.target.value as JobModality)}
                     className={inputCls}
@@ -287,8 +290,9 @@ export function CreateJobView() {
                 </div>
 
                 <div>
-                  <label className={labelCls}>Faixa Salarial</label>
+                  <label htmlFor="job-salary" className={labelCls}>Faixa Salarial</label>
                   <input
+                    id="job-salary"
                     value={salary}
                     onChange={(e) => setSalary(e.target.value)}
                     placeholder="R$ 8.000 – R$ 12.000"
@@ -299,8 +303,9 @@ export function CreateJobView() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className={labelCls}>Cidade</label>
+                  <label htmlFor="job-city" className={labelCls}>Cidade</label>
                   <input
+                    id="job-city"
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
                     placeholder="São Paulo"
@@ -309,8 +314,9 @@ export function CreateJobView() {
                 </div>
 
                 <div>
-                  <label className={labelCls}>Estado</label>
+                  <label htmlFor="job-state" className={labelCls}>Estado</label>
                   <input
+                    id="job-state"
                     value={jobState}
                     onChange={(e) => setJobState(e.target.value)}
                     placeholder="SP"
@@ -333,8 +339,9 @@ export function CreateJobView() {
               <h3 className="text-sm font-semibold text-primary">Requisitos Obrigatórios</h3>
 
               <div>
-                <label className={labelCls}>Skills Obrigatórias *</label>
+                <label htmlFor="req-skills" className={labelCls}>Skills Obrigatórias *</label>
                 <input
+                  id="req-skills"
                   value={reqSkills}
                   onChange={(e) => setReqSkills(e.target.value)}
                   placeholder="React, Node.js, TypeScript  (separado por vírgula)"
@@ -343,11 +350,12 @@ export function CreateJobView() {
               </div>
 
               <div>
-                <label className={labelCls}>
+                <label htmlFor="req-activities" className={labelCls}>
                   Atividades Obrigatórias *
                   <span className="ml-2 text-xs font-normal text-muted-foreground">(uma por linha)</span>
                 </label>
                 <textarea
+                  id="req-activities"
                   value={reqActivities}
                   onChange={(e) => setReqActivities(e.target.value)}
                   rows={3}
@@ -357,8 +365,9 @@ export function CreateJobView() {
               </div>
 
               <div>
-                <label className={labelCls}>Formações Aceitas *</label>
+                <label htmlFor="req-education" className={labelCls}>Formações Aceitas *</label>
                 <input
+                  id="req-education"
                   value={reqEducation}
                   onChange={(e) => setReqEducation(e.target.value)}
                   placeholder="Ciência da Computação, Engenharia de Software  (separado por vírgula)"
@@ -368,8 +377,9 @@ export function CreateJobView() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className={labelCls}>Experiência Mínima (anos)</label>
+                  <label htmlFor="req-min-exp" className={labelCls}>Experiência Mínima (anos)</label>
                   <input
+                    id="req-min-exp"
                     type="number"
                     min={0}
                     value={reqMinExp}
@@ -387,8 +397,9 @@ export function CreateJobView() {
               <h3 className="text-sm font-semibold text-violet-600">Diferenciais Desejáveis</h3>
 
               <div>
-                <label className={labelCls}>Cursos e Certificações</label>
+                <label htmlFor="des-courses" className={labelCls}>Cursos e Certificações</label>
                 <input
+                  id="des-courses"
                   value={desCourses}
                   onChange={(e) => setDesCourses(e.target.value)}
                   placeholder="AWS Cloud Practitioner, Docker Essentials  (separado por vírgula)"
@@ -397,8 +408,9 @@ export function CreateJobView() {
               </div>
 
               <div>
-                <label className={labelCls}>Experiências que Agregam</label>
+                <label htmlFor="des-experiences" className={labelCls}>Experiências que Agregam</label>
                 <input
+                  id="des-experiences"
                   value={desExperiences}
                   onChange={(e) => setDesExperiences(e.target.value)}
                   placeholder="Trabalho em startups, Projetos open source  (separado por vírgula)"
@@ -407,8 +419,9 @@ export function CreateJobView() {
               </div>
 
               <div>
-                <label className={labelCls}>Diferenciais Competitivos</label>
+                <label htmlFor="des-differentials" className={labelCls}>Diferenciais Competitivos</label>
                 <input
+                  id="des-differentials"
                   value={desDifferentials}
                   onChange={(e) => setDesDifferentials(e.target.value)}
                   placeholder="Inglês intermediário, Conhecimento em microsserviços  (separado por vírgula)"
@@ -431,8 +444,9 @@ export function CreateJobView() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className={labelCls}>Anos de estabilidade p/ bônus</label>
+                  <label htmlFor="stability-years" className={labelCls}>Anos de estabilidade p/ bônus</label>
                   <input
+                    id="stability-years"
                     type="number"
                     min={0}
                     value={stabilityYears}
@@ -459,8 +473,9 @@ export function CreateJobView() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className={labelCls}>Exp. Mínima Eliminatória (anos)</label>
+                  <label htmlFor="elim-min-exp" className={labelCls}>Exp. Mínima Eliminatória (anos)</label>
                   <input
+                    id="elim-min-exp"
                     type="number"
                     min={0}
                     value={elimMinExp}
@@ -470,8 +485,9 @@ export function CreateJobView() {
                 </div>
 
                 <div>
-                  <label className={labelCls}>Regime Exigido</label>
+                  <label htmlFor="req-schedule" className={labelCls}>Regime Exigido</label>
                   <select
+                    id="req-schedule"
                     value={reqSchedule}
                     onChange={(e) => setReqSchedule(e.target.value)}
                     className={inputCls}
@@ -485,8 +501,9 @@ export function CreateJobView() {
                 </div>
 
                 <div>
-                  <label className={labelCls}>Skills Mandatórias</label>
+                  <label htmlFor="mandatory-skills" className={labelCls}>Skills Mandatórias</label>
                   <input
+                    id="mandatory-skills"
                     value={mandatorySkills}
                     onChange={(e) => setMandatorySkills(e.target.value)}
                     placeholder="Java, Git  (separado por vírgula)"
